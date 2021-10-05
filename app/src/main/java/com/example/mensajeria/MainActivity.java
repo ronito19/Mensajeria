@@ -26,19 +26,7 @@ public class MainActivity extends AppCompatActivity {
         txt_recibido1 = (TextView) findViewById(R.id.txt_recibido1);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == PETICION1)
-        {
-            if(requestCode == RESULT_OK)
-            {
-                String texto = data.getStringExtra(segundoActivity.EXTRA_RESPUESTA2);
-                txt_recibido1.setText(texto);
-                edt_enviado1.setText("");
-            }
-        }
-    }
+
 
     public void enviar(View view) {
         String texto = String.valueOf(edt_enviado1.getText());
@@ -48,5 +36,22 @@ public class MainActivity extends AppCompatActivity {
         // QUIERO AHORA INICIAR UN ACTIVITY Y ESPERAR UNA RESPUESTA
         startActivityForResult(intent, PETICION1);
 
+    }
+
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == PETICION1)
+        {
+            if(resultCode == RESULT_OK)
+            {
+                String texto = data.getStringExtra(segundoActivity.EXTRA_RESPUESTA2);
+                txt_recibido1.setText(texto);
+                edt_enviado1.setText("");
+            }
+        }
     }
 }
